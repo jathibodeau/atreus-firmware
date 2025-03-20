@@ -61,46 +61,48 @@ enum {
   UPPER
 };
 
+enum { TD_ALTX };
+
 // clang-format off
 KEYMAPS(
+
   [QWERTY] = KEYMAP_STACKED
-  (
-       Key_Q              ,Key_W     ,Key_E       ,Key_R         ,Key_T
-      ,MT(LeftControl, A) ,Key_S     ,Key_D       ,Key_F         ,Key_G
-      ,MT(LeftShift, Z)   ,Key_X     ,Key_C       ,Key_V         ,Key_B         ,Key_Backtick
-      ,Key_Esc            ,Key_Tab   ,Key_LeftShift ,Key_LeftGui ,Key_Space     ,TD(0)
-
-                          ,Key_Y     ,Key_U       ,Key_I         ,Key_O         ,Key_P
-                          ,Key_H     ,Key_J       ,Key_K         ,Key_L         ,MT(RightControl, Semicolon)
-       ,Key_Backslash     ,Key_N     ,Key_M       ,Key_Comma     ,Key_Period    ,MT(RightShift, Slash)
-       ,Key_Backspace     ,Key_Space ,MO(FUN)     ,Key_Minus     ,Key_Quote     ,Key_Enter
+  /* ------------------------------------------------------------- [Layer 0] ------------------------------------------------------------------ */
+  ( Key_Q                 , Key_W                    , Key_E              , Key_R                , Key_T
+  , Key_A                 , Key_S                    , Key_D              , Key_F                , Key_G
+  , Key_Z                 , Key_X                    , Key_C              , Key_V                , Key_B                 , Key_Backtick
+  , Key_Esc               , Key_Tab                  , Key_LeftShift      , Key_LeftGui          , Key_Space             , TD(TD_ALTX)
+  /* ------------------------------------------------------------------------------------------------------------------------------------------ */
+                          , Key_Y                    , Key_U              , Key_I                , Key_O                 , Key_P
+                          , Key_H                    , Key_J              , Key_K                , Key_L                 , Key_Semicolon
+  , Key_Backslash         , Key_N                    , Key_M              , Key_Comma            , Key_Period            , Key_Slash
+  , Key_Backspace         , Key_Space                , MO(FUN)            , Key_Minus            , Key_Quote             , Key_Enter
   ),
-
+  /* ------------------------------------------------------------- [Layer 1] ------------------------------------------------------------------ */
   [FUN] = KEYMAP_STACKED
-  (
-       Key_Exclamation ,Key_At           ,Key_UpArrow   ,Key_Dollar           ,Key_Percent
-      ,Key_LeftParen   ,Key_LeftArrow    ,Key_DownArrow ,Key_RightArrow       ,Key_RightParen
-      ,Key_LeftBracket ,Key_RightBracket ,Key_Hash      ,Key_LeftCurlyBracket ,Key_RightCurlyBracket ,Key_Caret
-      ,TG(UPPER)       ,Key_Insert       ,Key_LeftShift ,Key_LeftGui          ,Key_Space             ,Key_RightAlt
-
-                       ,Key_PageUp       ,Key_7         ,Key_8                ,Key_9                 ,Key_Delete
-                       ,Key_PageDown     ,Key_4         ,Key_5                ,Key_6                 ,___
-      ,Key_And         ,Key_Star         ,Key_1         ,Key_2                ,Key_3                 ,Key_Plus
-      ,Key_Backspace   ,Key_Space        ,___           ,Key_Period           ,Key_0                 ,Key_Equals
-   ),
-
+  ( Key_Exclamation       , Key_At                   , Key_UpArrow        , Key_Dollar           , Key_Percent
+  , Key_LeftParen         , Key_LeftArrow            , Key_DownArrow      , Key_RightArrow       , Key_RightParen
+  , Key_LeftBracket       , Key_RightBracket         , Key_Hash           , Key_LeftCurlyBracket , Key_RightCurlyBracket , Key_Caret
+  , TG(UPPER)             , Key_Insert               , Key_LeftShift      , Key_LeftGui          , Key_Space             , Key_RightAlt
+  /* ------------------------------------------------------------------------------------------------------------------------------------------ */
+                          , Key_PageUp               , Key_7              , Key_8                , Key_9                 , Key_Delete
+                          , Key_PageDown             , Key_4              , Key_5                , Key_6                 , ___
+  , Key_And               , Key_Star                 , Key_1              , Key_2                , Key_3                 , Key_Plus
+  , Key_Backspace         , Key_Space                , ___                , Key_Period           , Key_0                 , Key_Equals
+  ),
+  /* ------------------------------------------------------------- [Layer 2] ------------------------------------------------------------------ */
   [UPPER] = KEYMAP_STACKED
-  (
-       Key_Insert            ,Key_Home                 ,Key_UpArrow         ,Key_End         ,Key_PageUp
-      ,Key_Delete            ,Key_LeftArrow            ,Key_DownArrow       ,Key_RightArrow  ,Key_PageDown
-      ,M(MACRO_VERSION_INFO) ,Consumer_VolumeIncrement ,XXX                 ,XXX             ,___            ,___
-      ,MoveToLayer(QWERTY)   ,Consumer_VolumeDecrement ,___                 ,___             ,___            ,___
-
-                             ,Key_UpArrow              ,Key_F7              ,Key_F8          ,Key_F9         ,Key_F10
-                             ,Key_DownArrow            ,Key_F4              ,Key_F5          ,Key_F6         ,Key_F11
-      ,___                   ,XXX                      ,Key_F1              ,Key_F2          ,Key_F3         ,Key_F12
-      ,___                   ,___                      ,MoveToLayer(QWERTY) ,Key_PrintScreen ,Key_ScrollLock ,Consumer_PlaySlashPause
-   )
+  ( Key_Insert            , Key_Home                 , Key_UpArrow        , Key_End              , Key_PageUp
+  , Key_Delete            , Key_LeftArrow            , Key_DownArrow      , Key_RightArrow       , Key_PageDown
+  , M(MACRO_VERSION_INFO) , Consumer_VolumeIncrement , XXX                , XXX                  , ___                   , ___
+  , MoveToLayer(QWERTY)   , Consumer_VolumeDecrement , ___                , ___                  , ___                   , Key_LeftAlt
+  /* ------------------------------------------------------------------------------------------------------------------------------------------ */
+                          , Key_UpArrow             , Key_F7              , Key_F8               , Key_F9                , Key_F10
+                          , Key_DownArrow           , Key_F4              , Key_F5               , Key_F6                , Key_F11
+  , ___                   , XXX                     , Key_F1              , Key_F2               , Key_F3                , Key_F12
+  , ___                   , ___                     , MoveToLayer(QWERTY) , Key_PrintScreen      , Key_ScrollLock        , Consumer_PlaySlashPause
+  )
+  /* ------------------------------------------------------------------------------------------------------------------------------------------ */
 )
 // clang-format on
 
@@ -204,7 +206,7 @@ const macro_t *macroAction(uint8_t macro_id, KeyEvent &event) {
 void tapDanceAction(uint8_t tap_dance_index, KeyAddr key_addr, uint8_t tap_count, kaleidoscope::plugin::TapDance::ActionType tap_dance_action) {
   // DynamicTapDance.dance(tap_dance_index, key_addr, tap_count, tap_dance_action);
   switch (tap_dance_index) {
-  case 0:
+  case TD_ALTX:
     return tapDanceActionKeys(tap_count, tap_dance_action, Key_LeftAlt, LALT(Key_X));
   }
 }
@@ -213,8 +215,15 @@ void setup() {
   Kaleidoscope.setup();
   EEPROMKeymap.setup(9);
 
-  QUKEYS(
-    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 0), Key_LeftControl)
+  QUKEYS
+    ( kaleidoscope::plugin::Qukey(0, KeyAddr(1,  0), Key_LeftControl)
+    , kaleidoscope::plugin::Qukey(0, KeyAddr(2,  0), Key_LeftShift)
+    , kaleidoscope::plugin::Qukey(0, KeyAddr(1, 11), Key_RightControl)
+    , kaleidoscope::plugin::Qukey(0, KeyAddr(2, 11), Key_RightShift)
+    , kaleidoscope::plugin::Qukey(2, KeyAddr(1,  0), Key_LeftControl)
+    , kaleidoscope::plugin::Qukey(2, KeyAddr(2,  0), Key_LeftShift)
+    , kaleidoscope::plugin::Qukey(2, KeyAddr(1, 11), Key_RightControl)
+    , kaleidoscope::plugin::Qukey(2, KeyAddr(2, 11), Key_RightShift)
   );
 
   TapDance.setTimeout(1000);
